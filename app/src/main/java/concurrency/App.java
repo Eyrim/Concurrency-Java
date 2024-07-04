@@ -4,6 +4,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class App {
     public static void main(String[] args) throws InterruptedException {
@@ -41,14 +42,18 @@ public class App {
     }
 
     public static class Counter {
-        private int val = 0;
+        //private int val = 0;
+        private AtomicInteger val = new AtomicInteger(0);
 
+        //public synchronized void increment() {
         public void increment() {
-            val += 1;
+            //val += 1;
+            val.addAndGet(1);
         }
 
         public int get() {
-            return val;
+            //return val;
+            return val.get();
         }
     }
 }
