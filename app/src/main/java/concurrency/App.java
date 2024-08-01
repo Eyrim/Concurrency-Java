@@ -57,3 +57,19 @@ public class App {
         }
     }
 }
+
+/*
+ * Maps can't be used safely in multi threaded code because of their undlying implementation
+ * Non-thread-safe maps use arrays and operate via moving elements around
+ *
+ * When these arrays are not implemented in a thread safe manner, the maps are faster to use
+ * in syncronous code, but incredibly unsafe in multi threaded code.
+ *
+ * Java maps also have a number of stateful performance tricks they use, such as treeification.
+ * The maps will convert each bucket into a tree when certain criteria are filled, when two threads
+ * access the same map this process may happen and end in an inconsistent/unpredictable state.
+ *
+ * It is not safe to check if a value is in a map and then add it because these maps are not thread safe.
+ * In syncronous code there is an inherent queue to operations, in multi threaded code this is unpredictable
+ * and therefore one thread may decide a value is not in a map, when another thread has added it.
+ */
